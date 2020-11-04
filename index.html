@@ -144,7 +144,7 @@
                     them in a cool way!
                 </p>
                 <p>
-                    <a href="#" class="btn btn-primary my-2">Load Images</a>
+                    <a href="#" class="btn btn-primary my-2" onclick="loadImages()">Load Images</a>
                     <a href="#" class="btn btn-secondary my-2">Load Secondary Images</a>
                 </p>
             </div>
@@ -462,6 +462,7 @@
 
     <script>
         const loadImages = function (query) {
+            query = "tree";
             fetch(`http://www.splashbase.co/api/v1/images/search?query=${query}`)
                 .then(result => result.json())
                 .then(parsed_json => {
@@ -496,10 +497,6 @@
 
                 })
 
-        }
-
-        window.onload = function () {
-            loadImages("tree");
         }
     </script>
 </body>

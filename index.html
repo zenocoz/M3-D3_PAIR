@@ -92,6 +92,115 @@
         .hide {
             visibility: "hidden";
         }
+
+
+        #myImg {
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #myImg:hover {
+            opacity: 0.7;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.9);
+            /* Black w/ opacity */
+        }
+
+        /* Modal Content (image) */
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        /* Caption of Modal Image */
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
+        /* Add Animation */
+        .modal-content,
+        #caption {
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @-webkit-keyframes zoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        /* The Close Button */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* 100% Image Width on Smaller Screens */
+        @media only screen and (max-width: 700px) {
+            .modal-content {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
@@ -470,13 +579,10 @@
             fetch(`http://www.splashbase.co/api/v1/images/search?query=${query}`)
                 .then(result => result.json())
                 .then(parsed_json => {
-                    console.log(parsed_json.images[0].url);
                     let cards = document.querySelectorAll(".card");
-                    let card_wrapper = document.querySelector(".col-md-4");
+
                     cards.forEach((card, i) => {
-                        //card[i] 
-                        card.innerHTML =
-                            `<img src="${parsed_json.images[i].url}" id="${i}" class="card-img-top" alt="...">
+                        card.innerHTML = `<img src="${parsed_json.images[i].url}" id="${i}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <p class="card-text">
                                     This is a wider card with supporting text below as a natural
@@ -488,80 +594,60 @@
                                         <button type="button" class="btn btn-sm btn-outline-secondary">
                                             View
                                         </button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                                        <button type="button" onclick="hideImage()" class="btn btn-sm btn-outline-secondary">
                                             Hide
                                         </button>
                                     </div>
                                     <small class="text-muted">9 mins</small>
                                 </div>
                             </div>
-                        `
-                        let btn = document.querySelector(".btn-group button:last-child");
-                        btn.addEventListener("click", function () {
-                            let image = document.getElementById(`${i}`);
-                            //console.log(image);
-                            image.style.visibility = "hidden";
-                            //image.classList.add("hide");
-                        })
+                        `;
+                    });
 
-                    })
 
-                    // let _btns = document.querySelector(".btn-group button:last-child");
-                    // console.log(_btns);
-                    // for (let i = 0; i < _btns.length; i++) {
-                    //     _btns[i].addEventListener("click", function () {
-                    //         let image = document.querySelector(`${i}`);
-                    //         console.log(image);
-                    //         image.remove();
 
-                    //     })
-                    // }
 
                 })
 
         }
 
-        const loadSecond = function (query = 'lake') {
-            fetch(`http://www.splashbase.co/api/v1/images/search?query=${query}`)
-                .then(response => response.json())
-                .then(data => {
-                    const images = data.images
-                    const cards = document.querySelectorAll('.card')
-                    cards.forEach((card, index) => {
-                        card.innerHTML = `
-                            <img src="${images[index].url}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    This is a wider card with supporting text below as a natural
-                                    lead-in to additional content. This content is a little bit
-                                    longer.
-                                </p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button id='button${index}' type="button" class="btn btn-sm btn-outline-secondary">
-                                            View
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">
-                                            Edit
-                                        </button>
-                                    </div>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
-                            </div>
-                            <div id="myModal${images[index].id}" class="modal">
-                                <span class="close">&times;</span>
-                                <img class="modal-content" id="${images[index].id}">
-                                <div id="${index}"></div>
-                            </div>
-                        `
 
 
 
-
-
-                    })
-                })
-        }
+        // const loadImages = function (query) {
+        //         query = "tree";
+        //         fetch(`http://www.splashbase.co/api/v1/images/search?query=${query}`)
+        //             .then(result => result.json())
+        //             .then(parsed_json => {
+        //                     console.log(parsed_json.images[0].url);
+        //                     let cards = document.querySelectorAll(".card");
+        //                     let card_wrapper = document.querySelector(".col-md-4");
+        //                     let btns = document.querySelectorAll(".btn-group button:last-child");
+        //                     cards.forEach((card, i) => {
+        //                         //card[i] 
+        //                         card.innerHTML =
+        //                             `<img src="${parsed_json.images[i].url}" id="${i}" class="card-img-top" alt="...">
+        //                     <div class="card-body">
+        //                         <p class="card-text">
+        //                             This is a wider card with supporting text below as a natural
+        //                             lead-in to additional content. This content is a little bit
+        //                             longer.
+        //                         </p>
+        //                         <div class="d-flex justify-content-between align-items-center">
+        //                             <div class="btn-group">
+        //                                 <button type="button" class="btn btn-sm btn-outline-secondary">
+        //                                     View
+        //                                 </button>
+        //                                 <button type="button" id="hide" class="btn btn-sm btn-outline-secondary">
+        //                                     Hide
+        //                                 </button>
+        //                             </div>
+        //                             <small class="text-muted">9 mins</small>
+        //                         </div>
+        //                     </div>
+        //                 `;
+        //                     })
+        //                 }
     </script>
 </body>
 

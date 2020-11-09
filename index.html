@@ -252,13 +252,14 @@
         <section class="jumbotron text-center">
             <div class="container">
                 <h1 class="jumbotron-heading">Album API example</h1>
-                <p class="lead text-muted">
-                    This page will dynamically load pictures from the web, and display
-                    them in a cool way!
-                </p>
+                <form class="justify-content-center form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" id="query" type="search" placeholder="Search"
+                        aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
                 <p>
-                    <a href="#" class="btn btn-primary my-2" onclick="loadImages()">Load Images</a>
-                    <a href="#" class="btn btn-secondary my-2" onclick="loadSecond()">Load Secondary Images</a>
+                    <a href="#" class="btn btn-primary my-2" id="primary">Load Images</a>
+                    <a href="#" class="btn btn-secondary my-2" id="secondary">Load Secondary Images</a>
                 </p>
             </div>
         </section>
@@ -573,88 +574,8 @@
         integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous">
     </script>
 
-    <script>
-        const loadImages = function (query) {
-            query = "tree";
-            fetch(`http://www.splashbase.co/api/v1/images/search?query=${query}`)
-                .then(result => result.json())
-                .then(parsed_json => {
-                    let cards = document.querySelectorAll(".card");
+    <script src="script.js">
 
-                    cards.forEach((card, i) => {
-                        card.innerHTML = `<img src="${parsed_json.images[i].url}" id="${i}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    This is a wider card with supporting text below as a natural
-                                    lead-in to additional content. This content is a little bit
-                                    longer.
-                                </p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">
-                                            View
-                                        </button>
-                                        <button type="button" id="hide" class="btn btn-sm btn-outline-secondary">
-                                            Hide
-                                        </button>
-                                    </div>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
-                            </div>
-                        `;
-                    });
-                    let btns = document.querySelectorAll(".card-body");
-                    console.log(btns);
-                    // for (let i = 0; i < btns.length; i++) {
-                    //     btns.addEventListener("click", () => {
-
-                    //     })
-                    // }
-
-
-
-
-                })
-
-        }
-
-
-
-
-        // const loadImages = function (query) {
-        //         query = "tree";
-        //         fetch(`http://www.splashbase.co/api/v1/images/search?query=${query}`)
-        //             .then(result => result.json())
-        //             .then(parsed_json => {
-        //                     console.log(parsed_json.images[0].url);
-        //                     let cards = document.querySelectorAll(".card");
-        //                     let card_wrapper = document.querySelector(".col-md-4");
-        //                     let btns = document.querySelectorAll(".btn-group button:last-child");
-        //                     cards.forEach((card, i) => {
-        //                         //card[i] 
-        //                         card.innerHTML =
-        //                             `<img src="${parsed_json.images[i].url}" id="${i}" class="card-img-top" alt="...">
-        //                     <div class="card-body">
-        //                         <p class="card-text">
-        //                             This is a wider card with supporting text below as a natural
-        //                             lead-in to additional content. This content is a little bit
-        //                             longer.
-        //                         </p>
-        //                         <div class="d-flex justify-content-between align-items-center">
-        //                             <div class="btn-group">
-        //                                 <button type="button" class="btn btn-sm btn-outline-secondary">
-        //                                     View
-        //                                 </button>
-        //                                 <button type="button" id="hide" class="btn btn-sm btn-outline-secondary">
-        //                                     Hide
-        //                                 </button>
-        //                             </div>
-        //                             <small class="text-muted">9 mins</small>
-        //                         </div>
-        //                     </div>
-        //                 `;
-        //                     })
-        //                 }
     </script>
 </body>
 
